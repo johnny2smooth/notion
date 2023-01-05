@@ -9,7 +9,7 @@ async function main() {
   });
 
   const response = await notion.databases.query({
-    database_id: "FIXME",
+    database_id: "72936b038c7e440d9cb5c817afe86b40",
   });
 
   console.log("Got response:", response);
