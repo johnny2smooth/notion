@@ -3,6 +3,12 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
+// function isTodo<T extends Record<string, unknown>>(
+//   obj: T
+// ): obj is T & { type: "paragraph" } {
+//   return "type" in obj && obj.type === "paragraph";
+// }
+
 async function main() {
   const notion = new Client({
     auth: process.env.NOTION_TOKEN,
@@ -12,7 +18,13 @@ async function main() {
     database_id: "72936b038c7e440d9cb5c817afe86b40",
   });
 
-  console.log("Got response:", response);
+  const firstPageID = response.results.map((page) => page.id)[0];
+
+  const firstPageBlock = await notion.blocks.children.list({
+    block_id: firstPageID,
+  });
+
+  console.log(firstPageBlock.results);
 }
 
 main()
